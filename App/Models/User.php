@@ -1,6 +1,6 @@
 <?php 
-// Modèles intéraction avec la BDD
-class user {
+// Modèle : interaction avec la BDD
+class User {
     private $db;
 
     public function __construct() {
@@ -10,7 +10,7 @@ class user {
     // Récupérer un utilisateur par email
     public function getUserByEmail($email) {
         $result = $this->db->query(
-            "SELECT * FROM user WHERE email = ?",
+            "SELECT * FROM users WHERE email = ?",
             [$email]
         );
         return $result ? $result[0] : null;
@@ -19,8 +19,13 @@ class user {
     // Ajouter un utilisateur
     public function addUser($name, $email, $password, $role_id) {
         $this->db->query(
-            "INSERT INTO user (name, email, password, role_id) VALUES (?, ?, ?, ?)",
-            [$name, $email, password_hash($password, PASSWORD_DEFAULT), $role_id]
+            "INSERT INTO users (name, email, password, role_id) VALUES (?, ?, ?, ?)",
+            [
+                $name,
+                $email,
+                password_hash($password, PASSWORD_DEFAULT),
+                $role_id
+            ]
         );
     }
 }
